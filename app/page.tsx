@@ -1,12 +1,8 @@
 import EventCard from '@/components/EventCard';
 import ExploreBtn from '@/components/ExploreBtn';
+import { events } from '@/lib/constants';
 
 const Home = () => {
-  const events = [
-    { image: '/images/event1.png', title: 'Event 1' },
-    { image: '/images/event2.png', title: 'Event 2' },
-  ];
-
   return (
     <main>
       <section className="flex flex-col items-center justify-center">
@@ -20,10 +16,7 @@ const Home = () => {
           <ul className="events list-none">
             {events.map((event) => (
               <li key={event.title}>
-                <EventCard
-                  image={event.image}
-                  title={event.title}
-                />
+                <EventCard {...event} />
               </li>
             ))}
           </ul>
