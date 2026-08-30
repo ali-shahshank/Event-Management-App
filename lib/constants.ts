@@ -1,5 +1,4 @@
 export interface Event {
-  id: number;
   title: string;
   slug: string;
   image: string;
@@ -13,7 +12,6 @@ export interface Event {
 
 export const events: Event[] = [
   {
-    id: 1,
     title: 'React Conference 2025',
     slug: 'react-conference-2025',
     image: '/images/event1.png',
@@ -26,7 +24,6 @@ export const events: Event[] = [
     state: 'NV',
   },
   {
-    id: 2,
     title: 'Next.js Summit',
     slug: 'nextjs-summit',
     image: '/images/event2.png',
@@ -39,7 +36,6 @@ export const events: Event[] = [
     state: 'CA',
   },
   {
-    id: 3,
     title: 'Web Accessibility Conference',
     slug: 'web-accessibility-conference',
     image: '/images/event3.png',
@@ -52,7 +48,6 @@ export const events: Event[] = [
     state: 'NY',
   },
   {
-    id: 4,
     title: 'Global DevOps Bootcamp',
     slug: 'global-devops-bootcamp',
     image: '/images/event4.png',
@@ -65,7 +60,6 @@ export const events: Event[] = [
     state: 'WA',
   },
   {
-    id: 5,
     title: 'TypeScript Advanced Workshop',
     slug: 'typescript-advanced-workshop',
     image: '/images/event5.png',
@@ -78,7 +72,6 @@ export const events: Event[] = [
     state: 'TX',
   },
   {
-    id: 6,
     title: 'JavaScript Performance Summit',
     slug: 'javascript-performance-summit',
     image: '/images/event6.png',
