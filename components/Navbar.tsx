@@ -7,7 +7,7 @@ const Navbar = () => {
       <nav>
         <Link
           href={'/'}
-          className="flex"
+          className="logo"
         >
           <Image
             src="/icons/logo.png"

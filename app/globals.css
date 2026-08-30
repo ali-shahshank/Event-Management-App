@@ -111,6 +111,11 @@
     @apply border-border outline-ring/50;
   }
 
+  img {
+    height: auto;
+    width: auto;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -151,7 +156,7 @@
     @apply glass sticky top-0 z-50;
 
     nav {
-      @apply flex flex-row justify-between mx-auto container sm:px-10 px-5 py-4;
+      @apply flex flex-row justify-between mx-auto container sm:px-16 px-6 py-4;
     }
 
     .logo {

@@ -15,7 +15,8 @@ const EventCard = ({ image, title, slug, location, date, time }: props) => {
     <>
       <Link
         className="event-card"
-        href={`/events ${slug}`}
+        id="event-card"
+        href={`/events${slug}`}
       >
         <Image
           className="poster"
@@ -28,8 +29,8 @@ const EventCard = ({ image, title, slug, location, date, time }: props) => {
           <Image
             src="/icons/pin.svg"
             alt="location pin icon"
-            height={14}
             width={14}
+            height={14}
           />
           {location}
         </div>
