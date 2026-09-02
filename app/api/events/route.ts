@@ -7,9 +7,6 @@ import {
   UploadApiErrorResponse,
 } from 'cloudinary';
 
-// Check if CLOUDINARY_URL is set and log its status
-console.log('CLOUDINARY_URL exists:', !!process.env.CLOUDINARY_URL);
-
 // Max image upload size
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -25,6 +22,7 @@ function isDuplicateKeyError(
   );
 }
 
+// Server POST request
 export async function POST(req: NextRequest) {
   // Declared here so it's accessible in the catch block for cleanup
   let uploadResult: UploadApiResponse | undefined;
@@ -115,6 +113,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         message: 'Event Creation Failed',
+        error: error instanceof Error ? error.message : 'Unknown error',
+      },
+      { status: 500 },
+    );
+  }
+}
+
+// Server GET request
+export async function GET() {
+  try {
+    await connectDB();
+    const events = await Event.find().sort({ createdAt: -1 });
+    return NextResponse.json({ events }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: 'Database Connection Failed',
         error: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 },
