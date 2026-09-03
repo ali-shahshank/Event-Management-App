@@ -74,24 +74,84 @@ const EventDetailsPage = async ({
   }: { event: IEvent } = await request.json();
 
   return (
-    <section id="event">
-      <div className="header">
-        <h1>Event Description</h1> <p>{description}</p>
-      </div>
-      <div className="details">
-        <div className="content">
+    <>
+      <main>
+        <div>
+          <h3>Event description</h3>
+          <p>{description}</p>
+        </div>
+        <section className="flex">
           <Image
             src={image}
             alt="Event Image"
-            height={800}
-            width={800}
+            height={460}
+            width={560}
           />
-        </div>
-        <section className="flex-col-gap-2">
-          <h2>Overview</h2>
-          <p>{overview}</p>
+          <form className="bg-gray-400">
+            <input />
+            <button>Register</button>
+          </form>
         </section>
-        <section className="flex-col-gap-2">
+        <div className="">
+          <section className="my-4">
+            <h3>Event Overview</h3>
+            <p>{overview}</p>
+          </section>
+          <section className="mb-4">
+            <h3>Event Details</h3>
+            <EventDetailItem
+              icon="/icons/calendar.svg"
+              alt="Calendar Icon"
+              label={date}
+            />
+            <EventDetailItem
+              icon="/icons/clock.svg"
+              alt="Clock Icon"
+              label={time}
+            />
+            <EventDetailItem
+              icon="/icons/pin.svg"
+              alt="Pin Icon"
+              label={location}
+            />
+            <EventDetailItem
+              icon="/icons/mode.svg"
+              alt="Mode Icon"
+              label={mode}
+            />
+            <EventDetailItem
+              icon="/icons/audience.svg"
+              alt="Audience Icon"
+              label={audience}
+            />
+          </section>
+          <section className="mb-4">
+            <h3>Event Agenda</h3>
+            <EventAgendaItem agendaItems={agenda} />
+          </section>
+        </div>
+      </main>
+    </>
+    // <section id="event">
+    //   <div className="header">
+    //     <h1>Event Description</h1> <p>{description}</p>
+    //   </div>
+    //   <div className="details">
+    //     <div className="content">
+    //       <Image
+    //         src={image}
+    //         alt="Event Image"
+    //         height={400}
+    //         width={400}
+    //       />{' '}
+    //       <section className="flex-col-gap-2">
+    //         <h2>Overview</h2>
+    //         <p>{overview}</p>
+    //       </section>
+    //     </div>
+    //   </div>
+
+    /* <section className="flex-col-gap-2">
           <h2>Event Details</h2>
           <div className="flex flex-col gap-2">
             <EventDetailItem
@@ -120,10 +180,8 @@ const EventDetailsPage = async ({
               label={audience}
             />
           </div>
-        </section>
-        <EventAgendaItem agendaItems={agenda} />
-      </div>
-    </section>
+        </section> */
+    // <EventAgendaItem agendaItems={agenda} />
   );
 };
 
