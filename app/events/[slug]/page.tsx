@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { IEvent } from '@/database';
 import Image from 'next/image';
+import BookingForm from '@/components/BookingForm';
 
 // Event details component
 const EventDetailItem = ({
@@ -27,7 +28,7 @@ const EventDetailItem = ({
 
 // Event agenda component
 export const EventAgendaItem = ({ agendaItems }: { agendaItems: string[] }) => {
-  return (
+  return agendaItems.length > 0 ? (
     <div className="agenda">
       <ul>
         {agendaItems.map((item) => (
@@ -35,8 +36,18 @@ export const EventAgendaItem = ({ agendaItems }: { agendaItems: string[] }) => {
         ))}
       </ul>
     </div>
-  );
+  ) : null;
 };
+
+// Event tags component
+export const EventTagItem = ({ tags }: { tags: string[] }) =>
+  tags.length > 0 ? (
+    <ul>
+      {tags.map((tag) => (
+        <li key={tag}>{tag}</li>
+      ))}
+    </ul>
+  ) : null;
 
 // Event details page
 const EventDetailsPage = async ({
@@ -70,118 +81,73 @@ const EventDetailsPage = async ({
       agenda,
       audience,
       tags,
+      organizer,
     },
   }: { event: IEvent } = await request.json();
 
   return (
-    <>
-      <main>
-        <div>
-          <h3>Event description</h3>
-          <p>{description}</p>
-        </div>
-        <section className="flex">
-          <Image
-            src={image}
-            alt="Event Image"
-            height={460}
-            width={560}
-          />
-          <form className="bg-gray-400">
-            <input />
-            <button>Register</button>
-          </form>
+    <main>
+      <div>
+        <h3>Event Description</h3>
+        <p>{description}</p>
+      </div>
+      <section className="flex">
+        <Image
+          src={image}
+          alt="Event Image"
+          height={460}
+          width={560}
+        />
+        <aside>
+          <BookingForm />
+        </aside>
+      </section>
+      <div>
+        <section className="my-4">
+          <h4 className="text-lg font-semibold">Event Overview</h4>
+          <p>{overview}</p>
         </section>
-        <div className="">
-          <section className="my-4">
-            <h3>Event Overview</h3>
-            <p>{overview}</p>
-          </section>
-          <section className="mb-4">
-            <h3>Event Details</h3>
-            <EventDetailItem
-              icon="/icons/calendar.svg"
-              alt="Calendar Icon"
-              label={date}
-            />
-            <EventDetailItem
-              icon="/icons/clock.svg"
-              alt="Clock Icon"
-              label={time}
-            />
-            <EventDetailItem
-              icon="/icons/pin.svg"
-              alt="Pin Icon"
-              label={location}
-            />
-            <EventDetailItem
-              icon="/icons/mode.svg"
-              alt="Mode Icon"
-              label={mode}
-            />
-            <EventDetailItem
-              icon="/icons/audience.svg"
-              alt="Audience Icon"
-              label={audience}
-            />
-          </section>
-          <section className="mb-4">
-            <h3>Event Agenda</h3>
-            <EventAgendaItem agendaItems={agenda} />
-          </section>
-        </div>
-      </main>
-    </>
-    // <section id="event">
-    //   <div className="header">
-    //     <h1>Event Description</h1> <p>{description}</p>
-    //   </div>
-    //   <div className="details">
-    //     <div className="content">
-    //       <Image
-    //         src={image}
-    //         alt="Event Image"
-    //         height={400}
-    //         width={400}
-    //       />{' '}
-    //       <section className="flex-col-gap-2">
-    //         <h2>Overview</h2>
-    //         <p>{overview}</p>
-    //       </section>
-    //     </div>
-    //   </div>
-
-    /* <section className="flex-col-gap-2">
-          <h2>Event Details</h2>
-          <div className="flex flex-col gap-2">
-            <EventDetailItem
-              icon="/icons/calendar.svg"
-              alt="Calendar Icon"
-              label={date}
-            />
-            <EventDetailItem
-              icon="/icons/clock.svg"
-              alt="Clock Icon"
-              label={time}
-            />
-            <EventDetailItem
-              icon="/icons/pin.svg"
-              alt="Pin Icon"
-              label={location}
-            />
-            <EventDetailItem
-              icon="/icons/mode.svg"
-              alt="Mode Icon"
-              label={mode}
-            />
-            <EventDetailItem
-              icon="/icons/audience.svg"
-              alt="Audience Icon"
-              label={audience}
-            />
-          </div>
-        </section> */
-    // <EventAgendaItem agendaItems={agenda} />
+        <section className="mb-4">
+          <h4 className="text-lg font-semibold">Event Details</h4>
+          <EventDetailItem
+            icon="/icons/calendar.svg"
+            alt="Calendar Icon"
+            label={date}
+          />
+          <EventDetailItem
+            icon="/icons/clock.svg"
+            alt="Clock Icon"
+            label={time}
+          />
+          <EventDetailItem
+            icon="/icons/pin.svg"
+            alt="Pin Icon"
+            label={location}
+          />
+          <EventDetailItem
+            icon="/icons/mode.svg"
+            alt="Mode Icon"
+            label={mode}
+          />
+          <EventDetailItem
+            icon="/icons/audience.svg"
+            alt="Audience Icon"
+            label={audience}
+          />
+        </section>
+        <section className="mb-4">
+          <h4 className="text-lg font-semibold">Event Agenda</h4>
+          <EventAgendaItem agendaItems={agenda} />
+        </section>
+        <section>
+          <h4 className="text-lg font-semibold">About the Organizer</h4>
+          <p>{organizer}</p>
+        </section>
+        <section>
+          <EventTagItem tags={tags} />
+        </section>
+      </div>
+    </main>
   );
 };
 
