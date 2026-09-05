@@ -3,7 +3,8 @@ import { IEvent } from '@/database';
 import Image from 'next/image';
 import BookingForm from '@/components/BookingForm';
 import { getSimilarEventsBySlug } from '@/lib/actions/event.actions';
-// import EventCard from '@/components/EventCard';
+import EventCard from '@/components/EventCard';
+
 // Event details component
 const EventDetailItem = ({
   icon,
@@ -161,12 +162,12 @@ const EventDetailsPage = async ({
       <section>
         <h2 className="text-lg font-semibold">Similar Events</h2>
         <div className="events">
-          {/* {similarEvents.map((similarEvent: IEvent) => (
+          {similarEvents.map((similarEvent: IEvent) => (
             <EventCard
               key={String(similarEvent._id)}
               {...similarEvent}
             />
-          ))} */}
+          ))}
         </div>
       </section>
     </main>
