@@ -7,8 +7,6 @@ type RouteContext = {
   params: Promise<{ slug: string }>;
 };
 
-// Basic slug shape check — lowercase letters, numbers, and hyphens only,
-// matching how event.model.ts generates slugs. Rejects obviously malformed
 // input before touching the database.
 const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
