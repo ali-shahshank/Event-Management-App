@@ -34,9 +34,28 @@ export async function POST(req: NextRequest) {
       formData.entries(),
     );
 
-    // Array fields need explicit extraction — formData collapses duplicate keys otherwise
-    event.agenda = formData.getAll('agenda');
-    event.tags = formData.getAll('tags');
+    // agenda/tags are sent as a single JSON-stringified array field
+    const agendaRaw = formData.get('agenda');
+    const tagsRaw = formData.get('tags');
+
+    if (!agendaRaw || !tagsRaw) {
+      return NextResponse.json(
+        { message: 'Agenda and tags are required' },
+        { status: 400 },
+      );
+    }
+
+    let agenda: string[];
+    let tags: string[];
+    try {
+      agenda = JSON.parse(agendaRaw as string);
+      tags = JSON.parse(tagsRaw as string);
+    } catch {
+      return NextResponse.json(
+        { message: 'Agenda and tags must be valid JSON arrays' },
+        { status: 400 },
+      );
+    }
 
     // Validate image file presence and constraints before uploading
     const file = formData.get('image') as File | null;
@@ -86,7 +105,11 @@ export async function POST(req: NextRequest) {
     event.image = uploadResult.secure_url;
 
     // Create event in the database
-    const createdEvent = await Event.create(event);
+    const createdEvent = await Event.create({
+      ...event,
+      agenda,
+      tags,
+    });
 
     return NextResponse.json(
       { message: 'Event Created Successfully', event: createdEvent },
